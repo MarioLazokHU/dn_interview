@@ -2,45 +2,57 @@ import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface BlogPostType {
-  userId: number;
-  id: number;
+  userName: string;
+  id: string;
   title: string;
-  body: string;
+  content: string;
+  createdAt: string
 }
 
-const BlogPost = () => {
-  const [blogPost, setBlogPost] = useState<BlogPostType[] | null>(null);
+interface BlogPostProps {
+  refresh: boolean;
+}
+
+const BlogPost: React.FC<BlogPostProps> = ({ refresh }) => {
+  const [blogPosts, setBlogPosts] = useState<BlogPostType[] | null>(null);
+
   useEffect(() => {
-    const getPost = async () => {
-      const request = await fetch(
-        "http://localhost:3000/blog-posts"
-      );
+    const getPosts = async () => {
+      const request = await fetch("http://localhost:3000/blog-posts");
       const response = await request.json();
 
       if (response) {
-        setBlogPost(response);
-       
+        setBlogPosts(response);
       }
     };
+    getPosts();
+  }, [refresh]);
 
-    getPost();
-  }, []);
-  if (blogPost) {
-    return (
-      <>
-        <div>
-          {blogPost.map((b) => {
-            return (
-              <Card sx={{backgroundColor: '#eeeeee'}} variant="outlined" className="m-5 p-2" key={b.id}>
-                <h2 className="font-bold">{b.title}</h2>
-                <div>{b.body}</div>
-              </Card>
-            );
-          })}
-        </div>
-      </>
-    );
+  if (!blogPosts) {
+    return null;
   }
+
+  return (
+    <div className="w-full">
+      {blogPosts.map((b) => (
+        <Card
+          sx={{ backgroundColor: "#eeeeee" }}
+          variant="outlined"
+          className="m-5 p-5 flex justify-between items-center gap-10 w-full"
+          key={b.id}
+        >
+          <div className="uppercase rounded-full bg-slate-900 w-10 h-10 flex items-center justify-center text-white font-extrabold">{b.userName.split('')[0]}{b.userName.split('')[1]}</div>
+          <div>
+            <h2 className="font-bold">{b.title}</h2>
+            <div>{b.content}</div>
+          </div>
+          <div>
+            {b.createdAt.split("T")[0]}
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
 };
 
 export default BlogPost;

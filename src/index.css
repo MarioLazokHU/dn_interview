@@ -1,19 +1,8 @@
-.main-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-  gap: 30px;
-}
-
-.form-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+body{
+  background-color: #222831
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
