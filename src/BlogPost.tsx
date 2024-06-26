@@ -1,6 +1,7 @@
+import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
 
-interface BlogPos {
+interface BlogPostType {
   userId: number;
   id: number;
   title: string;
@@ -8,16 +9,17 @@ interface BlogPos {
 }
 
 const BlogPost = () => {
-  const [blogPost, setBlogPost] = useState<BlogPos[] | null>(null);
+  const [blogPost, setBlogPost] = useState<BlogPostType[] | null>(null);
   useEffect(() => {
     const getPost = async () => {
       const request = await fetch(
-        "https://jsonplaceholder.typicode.com/posts?userId=1"
+        "http://localhost:3000/blog-posts"
       );
       const response = await request.json();
 
       if (response) {
         setBlogPost(response);
+       
       }
     };
 
@@ -26,16 +28,19 @@ const BlogPost = () => {
   if (blogPost) {
     return (
       <>
-        <div>    
+        <div>
           {blogPost.map((b) => {
-            return <div key={b.id}>{b.title}</div>;
+            return (
+              <Card sx={{backgroundColor: '#eeeeee'}} variant="outlined" className="m-5 p-2" key={b.id}>
+                <h2 className="font-bold">{b.title}</h2>
+                <div>{b.body}</div>
+              </Card>
+            );
           })}
         </div>
       </>
     );
-  }else{
-    return <></>
   }
 };
 
-export default BlogPost
+export default BlogPost;
