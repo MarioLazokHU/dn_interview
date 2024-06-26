@@ -84,7 +84,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
   switch (page) {
     case 1:
       content = (
-        <div className="w-ful h-full">
+        <div className="w-full h-full">
           <Card
             sx={{ backgroundColor: "#EEEEEE" }}
             variant="outlined"
@@ -113,11 +113,11 @@ const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
       break;
     case 2:
       content = (
-        <div className="w-ful h-full">
+        <div className="w-full h-full">
           <Card
             sx={{ backgroundColor: "#EEEEEE" }}
             variant="outlined"
-            className="p-10 w-96 h-fit flex flex-col gap-5"
+            className="p-10 w-full h-fit flex flex-col gap-5"
           >
             <p>Page 2/3</p>
             <TextField
@@ -159,7 +159,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
           <Card
             sx={{ backgroundColor: "#EEEEEE" }}
             variant="outlined"
-            className="p-10 w-96 h-fit flex flex-col gap-5"
+            className="p-10 w-full h-fit flex flex-col gap-5"
           >
             <p>Page 3/3</p>
             <TextField
